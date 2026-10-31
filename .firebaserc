@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "production": "home-food-plus",
+    "staging": "homed-food-staging"
+  }
+}

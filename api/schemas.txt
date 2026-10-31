@@ -1,0 +1,1194 @@
+schema {
+  query: RootQuery
+  mutation: RootMutation
+}
+
+enum ActionType {
+  next
+  prev
+}
+
+type Addon {
+  id: String!
+  name: Name!
+  price: Float!
+}
+
+input AddonInput {
+  id: String!
+  name: NameInput!
+  price: Float!
+}
+
+type Address {
+  id: String!
+  name: String
+  lat: Float!
+  long: Float!
+  street: String
+  building: String
+  notes: String
+  isDefault: Boolean!
+  isRemoved: Boolean!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input AddressInput {
+  lat: Float!
+  long: Float!
+  name: String
+  street: String
+  building: String
+  notes: String
+}
+
+input AddressUpdate {
+  name: String
+  lat: Float
+  long: Float
+  cityId: String
+  phoneNumber: String
+  district: String
+  street: String
+  building: String
+  notes: String
+}
+
+type Admin {
+  id: String!
+  authenticationUid: String!
+  userName: String
+  phoneNumber: String
+  email: String!
+  lang: Lang!
+  role: String!
+  avatar: String
+  pagesAccess: [String]!
+  isRemoved: Boolean!
+  isEnabled: Boolean!
+  createdBy: String
+  createdAt: DateTime
+  updatedBy: String
+  updatedAt: DateTime
+}
+
+input AdminInput {
+  email: String!
+  password: String!
+  pagesAccess: [String]!
+}
+
+input AdminUpdate {
+  userName: String
+  phoneNumber: String
+  lang: Lang
+  avatar: String
+  pagesAccess: [String]
+}
+
+type AppWallet {
+  id: String!
+  balance: Float!
+  actualBalance: Float!
+  createdBy: String
+  createdAt: DateTime
+  updatedBy: String
+  updatedAt: DateTime
+}
+
+type AutocompleteOption {
+  id: String!
+  label: String!
+}
+
+type BankAccount {
+  id: String!
+  bankName: String!
+  iban: String!
+  fullName: String!
+  isDefault: Boolean!
+  idNumber: String!
+}
+
+input BankAccountInput {
+  bankName: String!
+  iban: String!
+  fullName: String!
+  idNumber: String!
+}
+
+input BankAccountUpdate {
+  bankName: String
+  iban: String
+  fullName: String
+  idNumber: String
+}
+
+type Captain {
+  id: String!
+  code: String!
+  fullName: String
+  phoneNumber: String!
+  email: String
+  avatar: String
+  authenticationUid: String!
+  deviceTokens: [String]!
+  lang: Lang!
+  vehicleId: String!
+  vehicle: Vehicle!
+  closedOrdersCount: Int!
+  cancelledOrdersCount: Int!
+  currentLat: Float!
+  currentLng: Float!
+  geohash: String
+  city: City
+  pendingOrderId: String
+  pendingOrder: Order
+  deliveringOrderId: String
+  deliveringOrder: Order
+  license: String
+  vehicleLicense: String
+  dashboardReview: DashboardReview
+  isEnabled: Boolean!
+  notification: Boolean!
+  isRemoved: Boolean!
+  createdBy: String
+  createdAt: DateTime
+  updatedBy: String
+  updatedAt: DateTime
+}
+
+input CaptainInput {
+  fullName: String
+  phoneNumber: String!
+  lat: Float!
+  lng: Float!
+  email: String
+  deviceToken: String!
+  lang: Lang!
+  vehicleId: String!
+  license: String
+  vehicleLicense: String
+}
+
+enum CaptainStatusEnum {
+  pendingAdd
+  pendingUpdate
+  enabled
+  rejected
+  disabled
+}
+
+input CaptainUpdate {
+  fullName: String
+  phoneNumber: String
+  email: String
+  lang: Lang
+  avatar: String
+  license: String
+  vehicleLicense: String
+}
+
+type CaptainWallet {
+  id: String!
+  captainId: String!
+  balance: Float!
+  actualBalance: Float!
+  dayAmount: Float
+  weekAmount: Float
+  monthAmount: Float
+  yearAmount: Float
+  captain: Captain
+  createdBy: String
+  createdAt: DateTime
+  updatedBy: String
+  updatedAt: DateTime
+}
+
+type Cart {
+  id: String!
+  chefId: String
+  items: [CartItem]!
+  minOrderAmount: Float!
+  itemsCount: Int!
+  value: Float!
+  chefName: Name
+  createdBy: String
+  createdAt: DateTime
+  updatedBy: String
+  updatedAt: DateTime
+}
+
+type CartAddon {
+  addon: Addon!
+  quantity: Int!
+}
+
+type CartItem {
+  id: String!
+  chefId: String!
+  mealId: String!
+  sizeId: String
+  quantity: Int!
+  addons: [SelectedAddon]!
+  meal: Meal!
+  size: MealSize!
+  addonsItems: [CartAddon]!
+  value: Float!
+}
+
+input CartItemInput {
+  chefId: String!
+  mealId: String!
+  quantity: Int!
+  sizeId: String!
+  addons: [SelectedAddonInput]!
+}
+
+type Category {
+  id: String!
+  name: Name!
+  image: String
+  order: Int!
+  isRemoved: Boolean!
+  createdBy: String
+  createdAt: DateTime
+  updatedBy: String
+  updatedAt: DateTime
+}
+
+input CategoryUpdate {
+  name: NameInput
+  image: String
+}
+
+type Chef {
+  id: String!
+  code: String!
+  fullName: String!
+  phoneNumber: String!
+  email: String
+  authenticationUid: String!
+  deviceTokens: [String]!
+  lang: Lang!
+  avatar: String
+  rating: Float!
+  reviewsCount: Int
+  closedOrdersCount: Int!
+  cancelledOrdersCount: Int!
+  idCard: String
+  freelanceCertificate: String
+  taxNumber: String
+  medicalCertificate: String
+  dashboardReview: DashboardReview
+  address: Address
+  promoted: Boolean
+  city: City
+  sections: [Section]!
+  kitchen: Kitchen
+  mealsCount: Int
+  sectionsCount: Int
+  weeklyHours: Int
+  notification: Boolean!
+  isRemoved: Boolean!
+  isEnabled: Boolean!
+  createdBy: String
+  createdAt: DateTime
+  updatedBy: String
+  updatedAt: DateTime
+}
+
+input ChefInput {
+  fullName: String!
+  phoneNumber: String!
+  email: String
+  deviceToken: String!
+  lang: Lang!
+  idCard: String
+  freelanceCertificate: String
+  taxNumber: String
+  medicalCertificate: String
+}
+
+type ChefReview {
+  id: String!
+  orderId: String!
+  clientId: String!
+  chefId: String!
+  clientName: String!
+  rating: Int!
+  review: String!
+  createdBy: String
+  createdAt: DateTime!
+  updatedBy: String
+  updatedAt: DateTime
+}
+
+input ChefReviewInput {
+  rating: Int!
+  review: String!
+}
+
+input ChefUpdate {
+  fullName: String
+  email: String
+  phoneNumber: String
+  avatar: String
+  lang: Lang
+  idCard: String
+  freelanceCertificate: String
+  taxNumber: String
+  medicalCertificate: String
+}
+
+type ChefWallet {
+  id: String!
+  chefId: String!
+  balance: Float!
+  actualBalance: Float!
+  dayAmount: Float
+  weekAmount: Float
+  monthAmount: Float
+  yearAmount: Float
+  chef: Chef
+  createdBy: String
+  createdAt: DateTime
+  updatedBy: String
+  updatedAt: DateTime
+}
+
+type City {
+  id: String
+  en: String
+  ar: String
+}
+
+type CityReport {
+  cityId: String!
+  city: City!
+  ordersCount: Int!
+  chefsProfit: Float!
+  captainsProfit: Float!
+  appProfit: Float!
+}
+
+type Client {
+  id: String!
+  code: String!
+  fullName: String
+  phoneNumber: String!
+  email: String
+  avatar: String
+  authenticationUid: String!
+  deviceTokens: [String]!
+  lang: Lang!
+  defaultAddress: Address
+  city: City
+  closedOrdersCount: Int!
+  cancelledOrdersCount: Int!
+  dashboardReview: DashboardReview
+  notification: Boolean!
+  isRemoved: Boolean!
+  isEnabled: Boolean!
+  createdBy: String
+  createdAt: DateTime
+  updatedBy: String
+  updatedAt: DateTime
+}
+
+input ClientInput {
+  fullName: String
+  phoneNumber: String!
+  email: String
+  deviceToken: String!
+  lang: Lang!
+}
+
+input ClientUpdate {
+  fullName: String
+  phoneNumber: String
+  email: String
+  lang: Lang
+  avatar: String
+}
+
+type ClientWallet {
+  id: String!
+  clientId: String!
+  balance: Float!
+  actualBalance: Float!
+  dayAmount: Float
+  weekAmount: Float
+  monthAmount: Float
+  yearAmount: Float
+  client: Client
+  createdBy: String
+  createdAt: DateTime
+  updatedBy: String
+  updatedAt: DateTime
+}
+
+type DashboardReview {
+  rating: Int!
+  review: String
+}
+
+input DashboardReviewInput {
+  rating: Int!
+  review: String
+}
+
+scalar Date
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the
+`date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO
+8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+type DayShift {
+  working: Boolean!
+  startTime: Time!
+  endTime: Time!
+}
+
+input DayShiftInput {
+  working: Boolean!
+  startTime: Time!
+  endTime: Time!
+}
+
+input Filter {
+  key: String!
+  value: String
+  values: [String]
+  operator: QueryOperator!
+}
+
+scalar JSON
+
+type Kitchen {
+  kitchenName: Name!
+  logo: String
+  cover: String
+  minOrderAmount: Float!
+  schedule: Schedule!
+  timeZone: Int!
+  categoriesIds: [String]!
+  categories: [Category]!
+}
+
+input KitchenInput {
+  kitchenName: NameInput!
+  logo: String
+  cover: String
+  minOrderAmount: Float!
+  schedule: ScheduleInput!
+  timeZone: Int!
+  categoriesIds: [String]!
+}
+
+enum Lang {
+  en
+  ar
+}
+
+input LocationInput {
+  lat: Float!
+  lng: Float!
+}
+
+type Meal {
+  id: String!
+  name: Name!
+  description: Name!
+  categoryId: String!
+  sectionId: String!
+  price: Float!
+  images: [String]!
+  video: String
+  category: Category
+  section: Section!
+  orderBefore: OrderBeforeEnum!
+  addons: [Addon]!
+  sizes: [MealSize]!
+  chefId: String!
+  isEnabled: Boolean!
+  isRemoved: Boolean!
+  createdBy: String
+  createdAt: DateTime
+  updatedBy: String
+  updatedAt: DateTime
+}
+
+input MealInput {
+  name: NameInput!
+  description: NameInput!
+  categoryId: String!
+  sectionId: String!
+  price: Float!
+  video: String
+  images: [String]!
+  orderBefore: OrderBeforeEnum!
+  addons: [AddonInput]!
+  sizes: [MealSizeInput]!
+}
+
+type MealSize {
+  id: String!
+  name: Name!
+  price: Float!
+}
+
+input MealSizeInput {
+  id: String!
+  name: NameInput!
+  price: Float!
+}
+
+input MealUpdate {
+  name: NameInput
+  description: NameInput
+  categoryId: String
+  sectionId: String
+  price: Float
+  video: String
+  images: [String]
+  orderBefore: OrderBeforeEnum
+  addons: [AddonInput]
+  sizes: [MealSizeInput]
+}
+
+type Name {
+  en: String!
+  ar: String!
+}
+
+input NameInput {
+  en: String!
+  ar: String!
+}
+
+type Notification {
+  id: String!
+  action: String
+  body: Name!
+  image: String
+  isRead: Boolean!
+  isRemoved: Boolean!
+  title: Name!
+  data: JSON
+  userType: String
+  createdAt: DateTime
+  createdBy: String
+  updatedAt: DateTime
+  updatedBy: String
+}
+
+type Order {
+  id: String!
+  orderNo: String
+  QRCode: String!
+  clientId: String!
+  client: Client
+  chefId: String!
+  chef: Chef!
+  captainId: String
+  captain: Captain
+  addressId: String!
+  address: Address!
+  cityId: String!
+  notes: String
+  cart: Cart!
+  cartAmount: Float!
+  deliveryFees: Float!
+  totalAmount: Float!
+  chefProfit: Float!
+  appOrderProfit: Float!
+  appDeliveryProfit: Float!
+  appTotalProfit: Float!
+  captainProfit: Float!
+  taxes: Float!
+  status: OrderStatus
+  paymentMethod: PaymentMethodEnum
+  deliveryTime: DateTime!
+  pickUpTime: DateTime!
+  chefReview: ChefReview
+  reviewed: Boolean!
+  createdBy: String
+  createdAt: DateTime!
+  updatedBy: String
+  updatedAt: DateTime
+}
+
+enum OrderBeforeEnum {
+  immediate
+  oneHour
+  threeHours
+  sixHours
+  nineHours
+  twelveHours
+  day
+  twoDays
+  threeDays
+}
+
+input OrderInput {
+  deliveryTime: DateTime!
+  paymentMethod: PaymentMethodEnum!
+  addressId: String!
+}
+
+enum OrderStatus {
+  shadow
+  inProgress
+  delivering
+  closed
+  cancelled
+}
+
+input PaginationInput {
+  limit: Int!
+  doc: JSON
+  action: ActionType!
+  orderBy: String!
+  sortType: SortType!
+  firstPage: Boolean!
+}
+
+enum PaymentMethodEnum {
+  visa
+  wallet
+}
+
+type PrivacyPolicy {
+  id: String!
+  value: Name!
+  createdBy: String
+  createdAt: DateTime
+  updatedBy: String
+  updatedAt: DateTime
+}
+
+type Promotion {
+  id: String!
+  chefId: String!
+  chef: Chef
+  status: PromotionStatusEnum!
+  startDate: String!
+  endDate: String!
+  amount: Float!
+  daysCount: Int!
+  createdAt: DateTime
+  createdBy: String
+  updatedAt: DateTime
+  updatedBy: String
+}
+
+input PromotionInput {
+  startDate: String!
+  endDate: String!
+  paymentMethod: PaymentMethodEnum!
+}
+
+enum PromotionStatusEnum {
+  shadow
+  success
+}
+
+enum QueryOperator {
+  less
+  lessEqual
+  greater
+  greaterEqual
+  equal
+  notEqual
+  startsWith
+  in
+  notIn
+  arrayContains
+  arrayContainsAny
+}
+
+type Request {
+  id: String!
+  type: String!
+  description: String!
+  amount: Float!
+  transId: String
+  ownerId: String!
+  userType: UserTypeEnum!
+  status: RequestStatusEnum!
+  bankAccountId: String!
+  bankAccount: BankAccount!
+  transactionTimeStamp: DateTime
+  transactionId: String
+  transactionUrl: String
+  notes: String
+  chef: Chef
+  captain: Captain
+  createdBy: String!
+  createdAt: DateTime!
+  updatedBy: String!
+  updatedAt: DateTime!
+}
+
+input RequestInput {
+  type: RequestType!
+  description: String!
+  amount: Float!
+  bankAccountId: String!
+}
+
+enum RequestStatusEnum {
+  pending
+  accepted
+  rejected
+  confirmed
+}
+
+enum RequestType {
+  withdraw
+}
+
+type RootMutation {
+  fixAddresses: Boolean
+  createMeClient(clientInput: ClientInput!): JSON!
+  editMeClient(clientUpdate: ClientUpdate!): JSON!
+  setNotificationStatus(notificationStatus: Boolean!): JSON!
+  removeMeClient: JSON!
+  removeClients(clientsIds: [String]!): JSON!
+  addAddress(address: AddressInput): JSON!
+  removeAddress(addressId: String!): JSON!
+  editAddress(addressId: String!, addressUpdate: AddressUpdate!): JSON!
+  setDefaultAddress(addressId: String!): JSON!
+  login(deviceToken: String!): JSON!
+  logout(deviceToken: String!): JSON!
+  readNotificationClient(notificationId: String!): JSON!
+  removeNotificationClient(notificationId: String!): JSON!
+  setClientsStatus(clientsIds: [String]!, status: Boolean!): JSON!
+  rechargeClientWallet(amount: Float): JSON!
+  rechargeClientWalletByAdmin(clientId: String!, amount: Float!, notes: NameInput!): JSON!
+  addChefToFavourites(chefId: String!): JSON!
+  removeChefFromFavourites(chefId: String!): JSON!
+  setClientDashboardReview(clientId: String!, reviewInput: DashboardReviewInput!): JSON!
+  createAdmin(adminInput: AdminInput!): JSON!
+  editMeAdmin(adminUpdate: AdminUpdate!): JSON!
+  editAdmin(adminId: String!, adminUpdate: AdminUpdate!): JSON!
+  setAdminsStatus(adminsIds: [String]!, status: Boolean!): JSON!
+  resetAdminPassword(adminId: String!, password: String!): JSON!
+  resetMyPassword(oldPassword: String!, newPassword: String!): JSON!
+  removeAdmins(adminsIds: [String]!): JSON!
+  removeMeAdmin: JSON!
+  rechargeAppWallet(amount: Float): JSON!
+  withdrawFromAppWallet(amount: Float!, transactionNo: String!): JSON!
+  createVehicle(vehicleInput: NameInput!): JSON!
+  removeVehicle(vehicleId: String!): JSON!
+  createMeChef(chefInput: ChefInput!): JSON!
+  editMeChef(chefUpdate: ChefUpdate!): JSON!
+  removeChefs(chefsIds: [String]!): JSON!
+  removeMeChef: JSON!
+  setChefAddress(address: AddressInput): JSON!
+  addBankAccountChef(bankAccount: BankAccountInput!): JSON!
+  removeBankAccountChef(bankAccountId: String!): JSON!
+  editBankAccountChef(bankAccountId: String!, bankAccountUpdate: BankAccountUpdate!): JSON!
+  setDefaultBankAccountChef(bankAccountId: String!): JSON!
+  loginChef(deviceToken: String!): JSON!
+  logoutChef(deviceToken: String!): JSON!
+  setMyKitchen(kitchenInput: KitchenInput!): JSON!
+  setKitchen(chefId: String!, kitchenInput: KitchenInput!): JSON!
+  setMySections(sections: [SectionInput]!): JSON!
+  setKitchenSections(chefId: String!, sections: [SectionInput]!): JSON!
+  readNotificationChef(notificationId: String!): JSON!
+  removeNotificationChef(notificationId: String!): JSON!
+  setChefsStatus(chefsIds: [String]!, status: Boolean!): JSON!
+  rechargeChefWallet(amount: Float): JSON!
+  rechargeChefWalletByAdmin(chefId: String!, amount: Float!, notes: NameInput!): JSON!
+  addWithdrawRequestChef(requestInput: RequestInput!): JSON!
+  decideWithdrawRequestChef(requestId: String!, acceptRequest: Boolean!, transactionTimeStamp: DateTime, notes: String): JSON!
+  confirmWithdrawRequestChef(requestId: String!, transactionId: String!, transactionUrl: String!): JSON!
+  promotoHome(promotionInput: PromotionInput!): JSON!
+  removePromotion(promotionId: String!): JSON!
+  setChefDashboardReview(chefId: String!, reviewInput: DashboardReviewInput!): JSON!
+  createMeCaptain(captainInput: CaptainInput!): JSON!
+  editMeCaptain(captainUpdate: CaptainUpdate!): JSON!
+  setNotificationStatusCaptain(notificationStatus: Boolean!): JSON!
+  removeMeCaptain: JSON!
+  removeCaptains(captainsIds: [String]!): JSON!
+  loginCaptain(deviceToken: String!): JSON!
+  logoutCaptain(deviceToken: String!): JSON!
+  readNotificationCaptain(notificationId: String!): JSON!
+  removeNotificationCaptain(notificationId: String!): JSON!
+  setCaptainsStatus(captainsIds: [String]!, status: Boolean!): JSON!
+  addBankAccountCaptain(bankAccount: BankAccountInput!): JSON!
+  removeBankAccountCaptain(bankAccountId: String!): JSON!
+  editBankAccountCaptain(bankAccountId: String!, bankAccountUpdate: BankAccountUpdate!): JSON!
+  setDefaultBankAccountCaptain(bankAccountId: String!): JSON!
+  rechargeCaptainWallet(amount: Float): JSON!
+  rechargeCaptainWalletByAdmin(captainId: String!, amount: Float!, notes: NameInput!): JSON!
+  addWithdrawRequestCaptain(requestInput: RequestInput!): JSON!
+  setCurrentLocation(lat: Float!, lng: Float!): JSON!
+  decideWithdrawRequestCaptain(requestId: String!, acceptRequest: Boolean!, transactionTimeStamp: DateTime, notes: String): JSON!
+  confirmWithdrawRequestCaptain(requestId: String!, transactionId: String!, transactionUrl: String!): JSON!
+  setCaptainDashboardReview(captainId: String!, reviewInput: DashboardReviewInput!): JSON!
+  addSlider(sliderInput: SliderInput!): JSON!
+  removeSlider(sliderId: String!): JSON!
+  updateSlider(sliderId: String!, sliderUpdate: SliderUpdate!): JSON!
+  updateClientTermsAndConditions(termsAndConditions: NameInput!): JSON!
+  updateClientPrivacyPolicy(privacyPolicy: NameInput!): JSON!
+  updateChefTermsAndConditions(termsAndConditions: NameInput!): JSON!
+  updateChefPrivacyPolicy(privacyPolicy: NameInput!): JSON!
+  updateCaptainTermsAndConditions(termsAndConditions: NameInput!): JSON!
+  updateCaptainPrivacyPolicy(privacyPolicy: NameInput!): JSON!
+  updateSettings(settingsInput: SettingsInput!): JSON!
+  createSavedReply(savedReply: SavedReplyInput!): JSON!
+  editSavedReply(savedReplyId: String!, savedReplyUpdate: SavedReplyUpdate!): JSON!
+  removeSavedReply(savedReplyId: String!): JSON!
+  createCategory(name: NameInput!): JSON!
+  removeCategory(categoryId: String!): JSON!
+  setCategoryImage(categoryId: String!, image: String!): JSON!
+  editCategory(categoryId: String!, categoryUpdate: CategoryUpdate!): JSON!
+  arrangeCategories(categoriesIds: [String]!): JSON!
+  createMeal(mealInput: MealInput!): JSON!
+  editMyMeal(mealId: String!, mealUpdate: MealUpdate!): JSON!
+  editMeal(chefId: String!, mealId: String!, mealUpdate: MealUpdate!): JSON!
+  removeMyMeal(mealId: String!): JSON!
+  removeMeal(chefId: String!, mealId: String!): JSON!
+  addItemToCart(cartItemInput: CartItemInput!): JSON!
+  setItemCount(itemId: String!, quantity: Int!): JSON!
+  setAddonCount(itemId: String!, addonId: String!, quantity: Int!): JSON!
+  removeItemFromCart(itemId: String!): JSON!
+  removeAddonFromCart(itemId: String!, addonId: String!): JSON!
+  checkout(orderInput: OrderInput!): JSON!
+  decideOrderDelivery(orderId: String!, decision: Boolean!): JSON!
+  assignOrderToCaptain(orderId: String!, captainId: String!): JSON!
+  handOrderToCaptain(orderId: String!, QRCode: String!): JSON!
+  closeOrder(orderId: String!): JSON!
+  cancelOrder(orderId: String!, notes: String!): JSON!
+  reviewChef(orderId: String!, review: ChefReviewInput!): JSON!
+  skipReview(orderId: String!): JSON!
+  temp: JSON!
+}
+
+type RootQuery {
+  findMeClient: Client
+  findClientById(clientId: String!): Client!
+  myAddressesClient: [Address]!
+  myDefaultAddressClient: Address
+  myNotificationsClient(pagination: PaginationInput!): [Notification]!
+  findNotificationClient(notificationId: String!): Notification!
+  listClients(filter: [Filter]!, pagination: PaginationInput!): [Client]!
+  listClientAddresses(clientId: String!): [Address]!
+  findMyWalletClient: ClientWallet!
+  findClientWallet(clientId: String!): ClientWallet!
+  listClientsWallets(filter: [Filter]!, pagination: PaginationInput!): [ClientWallet]!
+  myInWalletTransactionsClient(pagination: PaginationInput!): [Transaction]!
+  myOutWalletTransactionsClient(pagination: PaginationInput!): [Transaction]!
+  listInWalletTransactionsClient(clientId: String!, filter: [Filter]!, pagination: PaginationInput!): [Transaction]!
+  listOutWalletTransactionsClient(clientId: String!, filter: [Filter]!, pagination: PaginationInput!): [Transaction]!
+  myFavouriteChefs: [Chef]!
+  myFavouriteChefsIds: [String]!
+  findMeAdmin: Admin!
+  findAdmin(adminId: String!): Admin!
+  listAdmins(filter: [Filter]!, pagination: PaginationInput!): [Admin]!
+  authStorageToken: String!
+  listInWalletTransactionsApp(filter: [Filter]!, pagination: PaginationInput!): [Transaction]!
+  listOutWalletTransactionsApp(filter: [Filter]!, pagination: PaginationInput!): [Transaction]!
+  findAppWallet: AppWallet!
+  listVehicles: [Vehicle]!
+  findVehicleById(vehicleId: String!): Vehicle!
+  findMeChef: Chef
+  listChefs(filter: [Filter]!, pagination: PaginationInput!): [Chef]!
+  findChefById(chefId: String!): Chef!
+  myNotificationsChef(pagination: PaginationInput!): [Notification]!
+  listChefNotifications(chefId: String!, pagination: PaginationInput!): [Notification]!
+  findMyWalletChef: ChefWallet!
+  findChefWallet(chefId: String!): ChefWallet!
+  listChefsWallets(filter: [Filter]!, pagination: PaginationInput!): [ChefWallet]!
+  bankAccountsChef: [BankAccount]!
+  defaultBankAccountChef: BankAccount
+  listChefBankAccounts(chefId: String!): [BankAccount]!
+  myInWalletTransactionsChef(pagination: PaginationInput!): [Transaction]!
+  myOutWalletTransactionsChef(pagination: PaginationInput!): [Transaction]!
+  listInWalletTransactionsChef(chefId: String!, filter: [Filter]!, pagination: PaginationInput!): [Transaction]!
+  listOutWalletTransactionsChef(chefId: String!, filter: [Filter]!, pagination: PaginationInput!): [Transaction]!
+  myChefRequests(pagination: PaginationInput!): [Request]!
+  listChefsRequests(filter: [Filter]!, pagination: PaginationInput!): [Request]!
+  listMyReviewsChef(filter: [Filter]!, pagination: PaginationInput!): [ChefReview]!
+  listChefReviews(chefId: String!, filter: [Filter]!, pagination: PaginationInput!): [ChefReview]!
+  listPromotions(filter: [Filter]!, pagination: PaginationInput!): [Promotion]!
+  myChefPromotions(filter: [Filter]!, pagination: PaginationInput!): [Promotion]!
+  findMeCaptain: Captain
+  findCaptainById(captainId: String!): Captain!
+  listCaptains(filter: [Filter]!, pagination: PaginationInput!): [Captain]!
+  myNotificationsCaptain(pagination: PaginationInput!): [Notification]!
+  findNotificationCaptain(notificationId: String!): Notification!
+  findMyWalletCaptain: CaptainWallet!
+  findCaptainWallet(captainId: String!): CaptainWallet!
+  listCaptainsWallets(filter: [Filter]!, pagination: PaginationInput!): [CaptainWallet]!
+  bankAccountsCaptain: [BankAccount]!
+  defaultBankAccountCaptain: BankAccount
+  listCaptainBankAccounts(captainId: String!): [BankAccount]!
+  myInWalletTransactionsCaptain(pagination: PaginationInput!): [Transaction]!
+  myOutWalletTransactionsCaptain(pagination: PaginationInput!): [Transaction]!
+  myCaptainRequests(pagination: PaginationInput!): [Request]!
+  listCaptainsRequests(filter: [Filter]!, pagination: PaginationInput): [Request]!
+  listInWalletTransactionsCaptain(captainId: String!, filter: [Filter]!, pagination: PaginationInput!): [Transaction]!
+  listOutWalletTransactionsCaptain(captainId: String!, filter: [Filter]!, pagination: PaginationInput!): [Transaction]!
+  listSliders: [Slider]!
+  findSliderById(sliderId: String!): Slider!
+  findClientTermsAndConditions: TermsAndConditions!
+  findClientPrivacyPolicy: PrivacyPolicy!
+  findChefTermsAndConditions: TermsAndConditions!
+  findChefPrivacyPolicy: PrivacyPolicy!
+  findCaptainTermsAndConditions: TermsAndConditions!
+  findCaptainPrivacyPolicy: PrivacyPolicy!
+  findSettings: Settings!
+  listSavedReplies: [SavedReply]!
+  listCategories(filter: [Filter]!, pagination: PaginationInput!): [Category]!
+  listAllCategories: [Category]!
+  findCategoryById(categoryId: String!): Category!
+  findMeal(chefId: String!, mealId: String!): Meal!
+  myMeals(filter: [Filter]!, pagination: PaginationInput!): [Meal]!
+  listChefMeals(chefId: String!, filter: [Filter]!, pagination: PaginationInput!): [Meal]!
+  myCart: Cart
+  findClientCart(clientId: String!): Cart!
+  findMyCartSchedule: [DayShift]!
+  findMyCartDeliveryFees(addressId: String!): Float!
+  listOrders(filter: [Filter]!, pagination: PaginationInput!): [Order]!
+  findOrderById(orderId: String!): Order!
+  myClientOrders(filter: [Filter]!, pagination: PaginationInput!): [Order]!
+  myChefOrders(filter: [Filter]!, pagination: PaginationInput!): [Order]!
+  myCaptainOrders(filter: [Filter]!, pagination: PaginationInput!): [Order]!
+  getSalesReport(startDate: DateTime!, endDate: DateTime!): SalesReport!
+  getCitiesReport(startDate: DateTime!, endDate: DateTime!): [CityReport]!
+  listWalletTransactions(walletId: String!, filter: [Filter]!, pagination: PaginationInput!): [Transaction]!
+}
+
+type SalesReport {
+  total: Float!
+  taxes: Float!
+  chefsPayment: Float!
+  captainsPayment: Float!
+  profit: Float!
+}
+
+type SavedReply {
+  id: String!
+  title: String!
+  message: String!
+}
+
+input SavedReplyInput {
+  title: String!
+  message: String!
+}
+
+input SavedReplyUpdate {
+  title: String
+  message: String
+}
+
+type Schedule {
+  saturday: DayShift!
+  sunday: DayShift!
+  monday: DayShift!
+  tuesday: DayShift!
+  wednesday: DayShift!
+  thursday: DayShift!
+  friday: DayShift!
+}
+
+input ScheduleInput {
+  saturday: DayShiftInput!
+  sunday: DayShiftInput!
+  monday: DayShiftInput!
+  tuesday: DayShiftInput!
+  wednesday: DayShiftInput!
+  thursday: DayShiftInput!
+  friday: DayShiftInput!
+}
+
+type Section {
+  id: String!
+  name: Name!
+  meals: [Meal]
+}
+
+input SectionInput {
+  id: String!
+  name: NameInput!
+}
+
+type SelectedAddon {
+  id: String!
+  quantity: Int!
+}
+
+input SelectedAddonInput {
+  id: String!
+  quantity: Int!
+}
+
+type Settings {
+  phoneNumber: String
+  whatsapp: String
+  instagram: String
+  snapchat: String
+  email: String
+  address: String
+  playStoreClient: String
+  playStoreChef: String
+  playStoreCaptain: String
+  appStoreClient: String
+  appStoreChef: String
+  appStoreCaptain: String
+  androidVersionClient: String
+  androidVersionChef: String
+  androidVersionCaptain: String
+  IOSVersionClient: String
+  IOSVersionChef: String
+  IOSVersionCaptain: String
+  vat: Float
+  chefRatio: Float
+  chefRadius: Int
+  captainRatio: Float
+  captainRadius: Int
+  minDeliveryFees: Float
+  maxDeliveryFees: Float
+  priceForKM: Float
+  deliveryNotificationTime: Int
+  deliveryTime: Int
+  promotionPrice: Float
+}
+
+input SettingsInput {
+  phoneNumber: String
+  whatsapp: String
+  instagram: String
+  snapchat: String
+  email: String
+  address: String
+  playStoreClient: String
+  playStoreChef: String
+  playStoreCaptain: String
+  appStoreClient: String
+  appStoreChef: String
+  appStoreCaptain: String
+  androidVersionClient: String
+  androidVersionChef: String
+  androidVersionCaptain: String
+  IOSVersionClient: String
+  IOSVersionChef: String
+  IOSVersionCaptain: String
+  vat: Float
+  chefRatio: Float
+  chefRadius: Int
+  captainRatio: Float
+  captainRadius: Int
+  minDeliveryFees: Float
+  maxDeliveryFees: Float
+  priceForKM: Float
+  deliveryNotificationTime: Int
+  deliveryTime: Int
+  promotionPrice: Float
+}
+
+type Slider {
+  id: String!
+  title: Name!
+  description: Name!
+  imageEn: String!
+  imageAr: String!
+  createdBy: String
+  createdAt: DateTime
+  updatedBy: String
+  updatedAt: DateTime
+}
+
+input SliderInput {
+  id: String!
+  title: NameInput!
+  description: NameInput!
+  imageEn: String!
+  imageAr: String!
+}
+
+input SliderUpdate {
+  title: NameInput
+  description: NameInput
+  imageEn: String
+  imageAr: String
+}
+
+enum SortType {
+  asc
+  desc
+}
+
+type TermsAndConditions {
+  id: String!
+  value: Name!
+  createdBy: String
+  createdAt: DateTime
+  updatedBy: String
+  updatedAt: DateTime
+}
+
+scalar Time
+
+type Transaction {
+  id: String!
+  type: TransactionTypeEnum!
+  trackId: String
+  amount: Float!
+  objectType: String!
+  objectId: String!
+  objectNo: String
+  payerType: UserTypeEnum!
+  payerId: String!
+  payeeType: UserTypeEnum!
+  payeeId: String!
+  status: TransactionStatusEnum!
+  paymentMethod: PaymentMethodEnum!
+  paymentId: String!
+  notes: Name
+  createdBy: String
+  createdAt: DateTime
+  updatedBy: String
+  updatedAt: DateTime
+}
+
+enum TransactionStatusEnum {
+  pending
+  fail
+  success
+}
+
+enum TransactionTypeEnum {
+  withdraw
+  recharge
+  order
+  refund
+  promotion
+}
+
+enum UserTypeEnum {
+  client
+  chef
+  captain
+  admin
+  app
+  external
+}
+
+type Vehicle {
+  id: String!
+  name: Name!
+  createdBy: String
+  createdAt: DateTime
+  updatedBy: String
+  updatedAt: DateTime
+}

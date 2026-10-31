@@ -1,0 +1,10 @@
+node_modules
+dist
+.DS_Store
+*.log
+config/secrets.production.json
+config/secrets.staging.json
+.env
+.env.*
+database/cities/ServiceAccountKey.json
+database/cities/staging.json
