@@ -1,6 +1,6 @@
 {
   "projects": {
-    "production": "home-food-plus",
-    "staging": "homed-food-staging"
+    "production": "bayti-hub",
+    "staging": "bayti-hub-staging"
   }
 }
